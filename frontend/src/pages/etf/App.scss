@@ -1,0 +1,30 @@
+.App {
+  text-align: center;
+  background-color: #490000;
+}
+
+.etf-form {
+  display: flex;
+  flex-direction: column;
+  .form-select {
+    margin: 25px;
+  }
+  .form-button {
+    border-radius: 10px;
+  }
+}
+
+.App-header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.graph {
+  margin-top: 25px;
+  width: 100%;
+}

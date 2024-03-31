@@ -1,0 +1,84 @@
+.App {
+    text-align: center;
+    background-color: #490000;
+  }
+  .form-selector {
+    color: white;
+    font-size: large;
+    display: flex;
+    flex-direction: row;
+    .login-active {
+        background-color: white;
+        color: black;
+        padding: 10px;
+        border-radius: 35% 0 0 35%;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    .login-inactive {
+        background-color: black;
+        color: white;
+        padding: 10px;
+        border-radius: 35% 0 0 35%;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    .register-active {
+        background-color: white;
+        color: black;
+        padding: 10px;
+        border-radius: 0 35px 35px 0;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    .register-inactive {
+        background-color: black;
+        color: white;
+        padding: 10px;
+        border-radius: 0 35px 35px 0;
+        cursor: pointer;
+        font-weight: bold;
+    }
+  }
+  .App-form {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+.login-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 25px;
+    width: 250px;
+    .form-title {
+        margin-bottom: 25px;
+    }
+    .form-button {
+        margin-top: 25px;
+        border-radius: 8px;
+    }
+    .form-label {
+        font-size: 18px;
+    }
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 25px;  
+    .register-title {
+        margin-bottom: 25px;
+    }
+    .form-button {
+        margin-top: 25px;
+        border-radius: 8px;
+    }
+    .form-label {
+        font-size: 18px;
+    }
+}
