@@ -1,8 +1,8 @@
-const jwt = require('jsonwebtoken');
+import jwt  from "jsonwebtoken";
 
-module.exports = (req, res, next) => {
+const jwtMiddleware = (req, res, next) => {
     try {
-        const token = req.header.authorization.split('')[1];
+        const token = req.headers.authorization.split(' ')[1];
         const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');//penser à changer la clé RANDOM_TOKEN_SECRET pour la securitée
         const userId = decodedToken.userId;
         req.auth = {
@@ -13,3 +13,5 @@ module.exports = (req, res, next) => {
         res.status(403).json({ error });
     }
 };
+
+export default jwtMiddleware

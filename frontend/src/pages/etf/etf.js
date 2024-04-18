@@ -6,7 +6,14 @@ function Home() {
   const [selectedOption, setSelectedOption] = useState('');
   const [responseData, setResponseData] = useState(null);
   const [error, setError] = useState(null);
+  /*
+  vérification du token et redirection ci nécessaire
+  const token = sessionStorage.getItem('token');
 
+  if (!token) {
+    wondow.location.href = '/';
+    }
+  */
   const handleSubmit = async (event) => {
     event.preventDefault();
 

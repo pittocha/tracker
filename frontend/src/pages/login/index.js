@@ -1,4 +1,4 @@
-import * as PropTypes from 'prop-types';
+
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { API_ROUTES } from '../../utils/constant';
@@ -31,20 +31,22 @@ function App(setUser) {
     try {
       let response = await fetch(API_ROUTES.LOGIN, {
         method: "POST",
-        header: {
+        headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(loginDetails),
-      });
-      setStatus("Envoyer");
-      if (!response?.data?.token) {
+      })
+      setStatus("Envoyer")
+      .then(response => response.json())
+      .then(data => {
+      if (!data?.token) {
         setNotification({ error: true, message: 'Une erreur est survenue' });
         console.log('Something went wrong during signing in: ', response);
       } else {
-        storeInSessionStorage(response.data.token, response.data.userId);
-        setUser(response.data);
+        storeInSessionStorage(data.token, data.user_id);
+        setUser(data.user_id);
         navigate('/etf');
-      }
+      }})
     } catch (err) {
       setNotification({ error: true, message: err.message });
       console.log('Some error occured during signing in: ', err);
@@ -55,7 +57,7 @@ function App(setUser) {
     event.preventDefault();
     setStatus('Envoi...');
     const registerEmail = event.target.elements.register_email.value;
-    const registerPassword = event.target.elements.register_password;
+    const registerPassword = event.target.elements.register_password.value;
 
     let registerDetails = {
       email: registerEmail,
@@ -64,7 +66,7 @@ function App(setUser) {
     try {
       let response = await fetch(API_ROUTES.REGISTER, {
         method: 'POST',
-        header: {
+        headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(registerDetails),
@@ -116,7 +118,4 @@ function App(setUser) {
   );
 }
 
-App.propTypes = {
-  setUser: PropTypes.func.isRequired,
-};
 export default App;
