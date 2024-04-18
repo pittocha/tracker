@@ -1,25 +1,26 @@
-import express, { json } from "express";
-import mysql from "mysql";
 import dotenv, { config } from "dotenv";
-import cors from 'cors';
+import app from "./app.js"
+import mysql from "mysql2";
 import { etf } from "./index.js";
 
 dotenv.config();
 
-const app = express();
-app.use(cors({ origin: "http://localhost:3000" }))
-app.use(express.json());
-
 const PORT = process.env.PORT || 4001;
+
+const DB_HOST = process.env.DB_HOST;
 const DB_USER = process.env.DB_USER;
 const DB_PASSWORD = process.env.DB_PASSWORD;
+const DB_NAME = process.env.DB_NAME;
+
 const db = mysql.createPool({
     connectionLimit: 10,
-    host: "localhost",
+    host: `${DB_HOST}`,
     user: `${DB_USER}`,
     password: `${DB_PASSWORD}`,
-    database: "invest_tracker"
-});
+    database: `${DB_NAME}`
+}).promise();
+
+export default db;
 
 app.get("/", (req,res) => {
     res.status(200).json({ message: "I am an Express Server!" })
