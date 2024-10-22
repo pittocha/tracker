@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { API_ROUTES } from '../../utils/constant';
 import { useUser } from '../../lib/customHooks';
 import { storeInSessionStorage } from '../../lib/common';
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import './login.scss';
 
 function App(setUser) {
@@ -12,13 +13,22 @@ function App(setUser) {
   const navigate = useNavigate();
   const { user, authentificated } = useUser();
   const [notification, setNotification] = useState({ error: false, message: '' });
+  /*vérification de l'utilisateur connecté ou pas */
   if (user || authentificated) {
     navigate('/etf');
   }
   const handleToggleForm = (isLogin) => {
     setShowLogin(isLogin);
   };
-  /*fonction qui gere le formulaire de connexion */
+
+  /*fonction pour afficher/masquer le mot de passe */
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const handleClick = () => {
+    setPasswordVisible(!passwordVisible);
+  }
+
+  /*fonction qui gère le formulaire de connexion */
   const handleSubmitLogin = async (event) => {
     event.preventDefault();
     setStatus('Envoi...');
@@ -53,7 +63,8 @@ function App(setUser) {
       console.log('Some error occured during signing in: ', err);
     }
   };
-  /*fonction qui gere le formulaire d'inscription */
+
+  /*fonction qui gère le formulaire d'inscription */
   const handleSubmitRegister = async (event) => {
     event.preventDefault();
     setStatus('Envoi...');
@@ -101,7 +112,12 @@ function App(setUser) {
             <label htmlFor='email' className='form-label'>Email</label>
             <input type='email' name='email' className='email' id='login_email' placeholder='entrez votre Email' />
             <label htmlFor='password' className='form-label'>Password</label>
-            <input type='password' name='password' className='password' id='login_password' placeholder='entrez votre mot de passe' />
+            <div className='password-input-wrapper'>
+            <input type={passwordVisible ? 'text' : 'password' } name='password' className='password' id='login_password' placeholder='entrez votre mot de passe' />
+            <span onClick={handleClick} className='eye-icon'>
+              {passwordVisible ? <AiFillEyeInvisible /> : <AiFillEye />}
+            </span>
+            </div>
             <button type='submit' className='form-button'>{status}</button>
         </form>
         ) : (
@@ -111,7 +127,12 @@ function App(setUser) {
             <label htmlFor='email' className='form-label'>Email</label>
             <input type='email' name='email' className='email' id='register_email' placeholder='entrez votre Email' />
             <label htmlFor='password' className='form-label'>Password</label>
-            <input type='password' name='password' className='password' id='register_password' placeholder='entrez votre mot de passe' />
+            <div className='password-input-wrapper'>
+            <input type={passwordVisible ? 'text' : 'password' } name='password' className='password' id='register_password' placeholder='entrez votre mot de passe' />
+            <span onClick={handleClick} className='eye-icon'>
+              {passwordVisible ? <AiFillEyeInvisible /> : <AiFillEye />}
+            </span>
+            </div>
             <button type='submit' className='form-button'>{status}</button>
         </form>
         )}

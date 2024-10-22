@@ -67,6 +67,22 @@
     }
 }
 
+.password-input-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+}
+
+.eye-icon {
+    position: absolute;
+    right: 5px;
+    bottom: 16px;
+    height: 10px;
+    color: black;
+    cursor: pointer;
+}
+
 .login-form ::placeholder {
     color: black;
     opacity: 1;
@@ -75,8 +91,10 @@
 .register-form {
     display: flex;
     flex-direction: column;
-    margin-top: 25px;  
+    margin-top: 25px;
+    width: 250px; 
     .register-title {
+        font-size: 26px;
         margin-bottom: 25px;
     }
     .form-button {
