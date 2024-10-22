@@ -18,6 +18,7 @@ function App(setUser) {
   const handleToggleForm = (isLogin) => {
     setShowLogin(isLogin);
   };
+  /*fonction qui gere le formulaire de connexion */
   const handleSubmitLogin = async (event) => {
     event.preventDefault();
     setStatus('Envoi...');
@@ -45,14 +46,14 @@ function App(setUser) {
       } else {
         storeInSessionStorage(data.token, data.user_id);
         setUser(data.user_id);
-        navigate('/etf');
+        navigate('/dashboard');
       }})
     } catch (err) {
       setNotification({ error: true, message: err.message });
       console.log('Some error occured during signing in: ', err);
     }
   };
-
+  /*fonction qui gere le formulaire d'inscription */
   const handleSubmitRegister = async (event) => {
     event.preventDefault();
     setStatus('Envoi...');
@@ -94,6 +95,7 @@ function App(setUser) {
       <div className={!showLogin ? 'register-active' : 'register-inactive'} onClick={() => handleToggleForm(false)}>Register</div>
       </div>
       {showLogin ? (
+        /*formulaire de connexion */
         <form onSubmit={handleSubmitLogin} className='login-form' method='post'>
             <label className='form-title'>Login</label>
             <label htmlFor='email' className='form-label'>Email</label>
@@ -103,6 +105,7 @@ function App(setUser) {
             <button type='submit' className='form-button'>{status}</button>
         </form>
         ) : (
+          /*formulaire d'inscription */
         <form onSubmit={handleSubmitRegister} className='register-form' method='post'>
             <label className='register-title'>Or create an account</label>
             <label htmlFor='email' className='form-label'>Email</label>
