@@ -1,0 +1,25 @@
+.Menu {
+    text-align: center;
+    background-color: #00008B;
+    width: 250px;
+    margin-top: 150px;
+    margin-left: 15px;
+    border-radius: 15px;
+    position: absolute;
+}
+
+a:link {
+    text-decoration: none;
+    color: white;
+    
+}
+
+a:visited {
+    color: white;
+}
+
+li {
+    list-style: none;
+    padding: 10px;
+    margin-left: -25px;
+}

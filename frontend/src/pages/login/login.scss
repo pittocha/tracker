@@ -67,6 +67,11 @@
     }
 }
 
+.login-form ::placeholder {
+    color: black;
+    opacity: 1;
+}
+
 .register-form {
     display: flex;
     flex-direction: column;
@@ -82,3 +87,9 @@
         font-size: 18px;
     }
 }
+
+.register-form ::placeholder {
+    color: black;
+    opacity: 1;
+}
+
