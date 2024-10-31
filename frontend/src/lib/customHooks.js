@@ -15,5 +15,5 @@ export function useUser() {
         }
         getUserDetails();
     }, []);
-    return { connectedUser, auth, userLoading };
+    return { connectedUser, auth, userLoading, setConnectedUser };
 }

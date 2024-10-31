@@ -16,12 +16,12 @@ async function createUserQuery(email, password) {
 
 async function getUserByEmailQuery(email) {
     try {
-        await db.query(
+        const [rows] = await db.query(
             'SELECT * FROM users WHERE `email` = ?',
             [email]
         );
 
-        return row[0];
+        return rows[0];
     } catch(error) {
         throw error;
     }
