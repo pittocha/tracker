@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { API_ROUTES } from '../../utils/constant';
 import { useUser } from '../../lib/customHooks';
@@ -11,12 +11,14 @@ function App(setUser) {
   const [showLogin, setShowLogin] = useState(true);
   const [ status, setStatus ] = useState('Envoyer');
   const navigate = useNavigate();
-  const { user, authentificated } = useUser();
+  const { auth, connectedUser, setConnectedUser } = useUser();
   const [notification, setNotification] = useState({ error: false, message: '' });
   /*vérification de l'utilisateur connecté ou pas */
-  if (user || authentificated) {
-    navigate('/etf');
+  useEffect(() => {
+  if (connectedUser || auth) {
+    navigate('/account');
   }
+  }, [auth, connectedUser, navigate])
   const handleToggleForm = (isLogin) => {
     setShowLogin(isLogin);
   };
@@ -39,28 +41,30 @@ function App(setUser) {
       email: loginEmail,
       password: loginPassword, 
     };
+
     try {
-      let response = await fetch(API_ROUTES.LOGIN, {
+      const response = await fetch(API_ROUTES.LOGIN, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(loginDetails),
       })
-      setStatus("Envoyer")
-      .then(response => response.json())
-      .then(data => {
+      
+      const data = await response.json();
+
       if (!data?.token) {
         setNotification({ error: true, message: 'Une erreur est survenue' });
         console.log('Something went wrong during signing in: ', response);
+        setStatus('Envoyer');
       } else {
         storeInSessionStorage(data.token, data.user_id);
-        setUser(data.user_id);
+        setConnectedUser(data.user_id);
         navigate('/dashboard');
-      }})
-    } catch (err) {
+      }} catch (err) {
       setNotification({ error: true, message: err.message });
       console.log('Some error occured during signing in: ', err);
+      setStatus('Envoyer');
     }
   };
 
